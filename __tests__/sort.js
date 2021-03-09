@@ -12,7 +12,7 @@ describe('Sorting', () => {
 
   describe('Bubble sort', () => {
     it('should return an array', () => {
-      expect(bubbleSort(unsorted)).toBeInstanceof(Array);
+      expect(bubbleSort(unsorted)).toBeInstanceOf(Array);
     });
 
     xit('', () => {});
