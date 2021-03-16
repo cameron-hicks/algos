@@ -10,7 +10,6 @@ const single = [1];
 const dups = [5, 5, 1, 4, 3, 3, 2];
 const dupsSorted = [1, 2, 3, 3, 4, 5, 5];
 
-
 /*
 Strategy:
 Bubble the largest item of a progressively smaller subarray over to the right, cementing items in place from right to left.
@@ -69,8 +68,8 @@ const bubbleSort = (arr) => {
     for (let j = 0; j < arr.length - i; j++) {
       // console.log(`Sub-iteration #${j}`);
       // console.log(arr, arr[j], arr[j+1]);  // to illustrate optimization
-      if (arr[j] > arr[j+1]) {
-        [arr[j], arr[j+1]] = [arr[j+1], arr[j]];
+      if (arr[j] > arr[j + 1]) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
         swapsMade = true;
       }
     }
@@ -143,7 +142,7 @@ const insertionSort = (arr) => {
     let j = i - 1;
 
     while (j >= 0 && hold < arr[j]) {
-      arr[j + 1] = arr[j]; 
+      arr[j + 1] = arr[j];
       j--;
     }
     arr[j + 1] = hold;
@@ -169,7 +168,7 @@ Complexity:
 - space: 
  */
 
-const mergeSort = arr => {
+const mergeSort = (arr) => {
   if (arr.length <= 1) return arr;
 
   const midInd = Math.floor(arr.length / 2);
@@ -178,10 +177,10 @@ const mergeSort = arr => {
 
   const sorted = [];
   while (left.length || right.length) {
-    if (left[0] < right[0] || !right.length) { // need !right.length or else this evaluates to falsey when right is empty and left still has elems
+    if (left[0] < right[0] || !right.length) {
+      // need !right.length or else this evaluates to falsey when right is empty and left still has elems
       sorted.push(left.shift());
-    }
-    else sorted.push(right.shift());
+    } else sorted.push(right.shift());
   }
 
   return sorted;
@@ -209,9 +208,9 @@ Complexity:
 
 const swap = (arr, a, b) => {
   [arr[a], arr[b]] = [arr[b], arr[a]];
-}
+};
 
-const placePivot = (arr, start = 0, end = arr.length -1) => {
+const placePivot = (arr, start = 0, end = arr.length - 1) => {
   const pivot = arr[start];
   let newPivInd = start;
 
@@ -219,17 +218,17 @@ const placePivot = (arr, start = 0, end = arr.length -1) => {
     if (arr[i] < pivot) {
       newPivInd++;
       swap(arr, i, newPivInd);
-    } 
+    }
   }
 
   // place pivot in its final location
-  swap(arr, start, newPivInd)
+  swap(arr, start, newPivInd);
   return newPivInd;
-}
+};
 
 // infinite loop for some arrays (eg, arrays containing duplicates)
 const quickSort = (arr, start = 0, end = arr.length - 1) => {
-  if (end <= start) return arr; 
+  if (end <= start) return arr;
 
   const newPivInd = placePivot(arr, start, end);
   quickSort(arr, start, newPivInd - 1);
@@ -241,7 +240,6 @@ const quickSort = (arr, start = 0, end = arr.length - 1) => {
 // console.log(quickSort([5, 1, 4, 3, 2]))
 // console.log(quickSort([1, 2, 3, 5, 4]))
 // console.log(quickSort([5, 5, 1, 4, 3, 3, 2]));
-
 
 /*
 Strategy:
@@ -260,7 +258,6 @@ Complexity:
 const radixSort = (arr) => {
   return arr;
 };
-
 
 module.exports = {
   bubbleSort,
