@@ -9,7 +9,7 @@
   },
   "scripts": {
     "tsc": "tsc",
-    "test": "jest --verbose"
+    "test": "jest --verbose --watch"
   },
   "repository": {
     "type": "git",
