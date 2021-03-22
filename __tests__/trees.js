@@ -1,6 +1,4 @@
-const {
-  BST,
-} = require('../algos/trees');
+const { BST } = require('../algos/trees');
 
 describe('Trees', () => {
 

@@ -1,4 +1,4 @@
-module.exports = {
+export const arrays = {
   twoSum: (arr, target) => {
     // Given an array of integers, return the indices of the (only) two numbers that add up to the target.
   },
