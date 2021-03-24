@@ -1,6 +1,35 @@
 const arrays = require('../algos/arrays');
 
 describe('Arrays', () => {
+  describe('twoSum', () =>{
+    it('should work in regular cases', () => {
+      expect(arrays.twoSum([2, 7, 11, 15], 9)).toEqual([0, 1]);
+    })
+  })
+
+  describe('coinSum', () =>{
+    it('should work in regular cases', () => {
+      expect(arrays.coinSum([1, 2, 5], 11)).toEqual(3);
+    })
+
+    it('should work for large inputs', () => {
+      expect(arrays.coinSum([1, 2, 5], 100)).toEqual(20);
+    })
+
+    it('should work for short input arrays', () => {
+      expect(arrays.coinSum([1], 1)).toEqual(1);
+      expect(arrays.coinSum([1], 2)).toEqual(2);
+    })
+
+    it('should return 0 if target amount is 0', () => {
+      expect(arrays.coinSum([10], 0)).toEqual(0);
+    })
+
+    it('should return -1 if no combination of coins can produce the target amount', () => {
+      expect(arrays.coinSum([2], 3)).toEqual(-1);
+    })
+  })
+
   xdescribe('stock', () => {
     it('should return 0 for an array of length < 2', () => {
       expect(arrays.stock([100])).toEqual(0);
@@ -19,7 +48,7 @@ describe('Arrays', () => {
     })
   })
 
-  describe('spiral matrix', () => {
+  xdescribe('spiral matrix', () => {
     it('should work for square matrices', () => {
       expect(arrays.spiralMatrix([[1,2,3],[4,5,6],[7,8,9]])).toEqual([1,2,3,6,9,8,7,4,5]);
     })
