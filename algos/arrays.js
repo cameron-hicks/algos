@@ -212,7 +212,27 @@ const stock3 = [100];
 //   ]),
 // ); //--> [1,2,3,6,9,8,7,4,5]
 
-module.exports = arrays;
+// An array-based version of a priority queue that has time complexity of O(n logn) for insertion. A binary heap would be faster -- O(log n).
+class PriorityQueue {
+  constructor() {
+    this.values = [];
+  }
+
+  enqueue(value, priority) {
+    this.values.push({ value, priority });
+    this.sort();
+  }
+
+  sort() {
+    this.values.sort((a, b) => a.priority - b.priority);
+  }
+
+  dequeue() {
+    return this.values.shift();
+  }
+}
+
+module.exports = { arrays, PriorityQueue };
 
 // scratch
 

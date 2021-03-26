@@ -1,13 +1,19 @@
-class Vertex {
+class Node {
   constructor(val) {
     this.value = val;
+  }
+}
+
+class Vertex extends Node {
+  constructor(val) {
+    super(val);
     this.edges = [];
   }
 }
 
-// UNDIRECTED GRAPH
+// UNDIRECTED, UNWEIGHTED GRAPH
 // constructed using an adjacency list rather than a matrix
-export class Graph {
+class Graph {
   constructor() {
     this.vertices = {};
   }
@@ -234,6 +240,227 @@ export class Graph {
     // return provinces.length;
   }
 }
+
+class PriorityQueue {
+  constructor() {
+    this.values = [];
+  }
+
+  enqueue(value, priority) {
+    this.values.push({ value, priority });
+    this.sort();
+  }
+
+  sort() {
+    this.values.sort((a, b) => a.priority - b.priority);
+  }
+
+  dequeue() {
+    return this.values.shift();
+  }
+}
+
+// UNDIRECTED, WEIGHTED GRAPH
+class WeightedVertex extends Node {
+  constructor(val) {
+    super(val);
+    this.edges = {};
+  }
+}
+
+// constructed using an adjacency list rather than a matrix
+/*
+WeightedGraph {
+  vertices: {
+    [vertID]: {
+      value,
+      edges: {
+        [neighborID]: weight,
+      },
+    }
+  }
+}
+
+*/
+export class WeightedGraph {
+  constructor() {
+    this.vertices = {};
+  }
+
+  addVertex(val) {
+    this.vertices[val] = new WeightedVertex(val);
+  }
+
+  removeVertex(val) {
+    if (!this.vertices[val]) return;
+    // iterate over all vertices, removing this one from their edges
+    for (const vertVal in this.vertices) {
+      if (vertVal !== val) {
+        this.removeEdge(vertVal, val);
+      }
+    }
+
+    delete this.vertices[val];
+  }
+
+  addEdge(val1, val2, weight) {
+    if (!this.vertices[val1] || !this.vertices[val2]) return;
+    this.vertices[val1].edges[val2] = weight;
+    this.vertices[val2].edges[val1] = weight;
+  }
+
+  removeEdge(val1, val2) {
+    if (!this.vertices[val1] || !this.vertices[val2]) return;
+
+    delete this.vertices[val1].edges[val2];
+    delete this.vertices[val2].edges[val1];
+  }
+
+  // takes in the identifiers (in this implementation, the value) of two nodes and returns an array of node identifiers representing the shortest path between start and end
+  dijkstra(start, end) {
+    const q = new PriorityQueue();
+    // ** NOTE ** Can memoize this object to memoize dijkstra for each starting point
+    const distanceFromStart = {};
+    const eachNodesPrevNode = {};
+
+    // initialize state of each data structure
+    for (const vertVal in this.vertices) {
+      if (vertVal === start) {
+        distanceFromStart[vertVal] = 0;
+        q.enqueue(vertVal, 0);
+      } else {
+        distanceFromStart[vertVal] = Infinity;
+        q.enqueue(vertVal, Infinity);
+      }
+      eachNodesPrevNode[vertVal] = null;
+    }
+
+    let currNodeID, neighborNode;
+    while (q.values.length) {
+      currNodeID = q.dequeue().value;
+
+      // shortest path found
+      if (currNodeID === end) {
+        const path = [end];
+        let curr = end;
+
+        // build up the path by following eachNodesPrevNode backwards from end to start
+        while (eachNodesPrevNode[curr] !== null) {
+          curr = eachNodesPrevNode[curr];
+          path.push(curr);
+        }
+
+        return path.reverse();
+      }
+
+      // iterate over current node's neighbors
+      for (const neighborID in this.vertices[currNodeID].edges) {
+        neighborNode = this.vertices[neighborID];
+
+        // calculate distance from start based on distance from start to currNode
+        const dist =
+          distanceFromStart[currNodeID] + neighborNode.edges[currNodeID];
+        // if this is the shortest path that's been found so far, update the dictionaries
+        if (dist < distanceFromStart[neighborID]) {
+          distanceFromStart[neighborID] = dist;
+          eachNodesPrevNode[neighborID] = currNodeID;
+          // put this neighbor back in the queue, prioritized by distance
+          q.enqueue(neighborID, dist);
+        }
+      }
+    }
+
+    return 'No path found';
+  }
+
+  // TODO: return fn can return the length of the path from a fixed start to any end, but can't return the path
+  dijkstraMemo(start) {
+    const graph = this;
+    const distanceFromStart = {};
+
+    return function (end) {
+      return distanceFromStart[end] !== undefined
+        ? distanceFromStart[end]
+        : findPath();
+
+      function findPath() {
+        const q = new PriorityQueue();
+        const eachNodesPrevNode = {};
+        let currNodeID, neighborNode;
+
+        // initialize state of each data structure
+        for (const vertVal in graph.vertices) {
+          if (vertVal === start) {
+            distanceFromStart[vertVal] = 0;
+            q.enqueue(vertVal, 0);
+          } else {
+            distanceFromStart[vertVal] = Infinity;
+            q.enqueue(vertVal, Infinity);
+          }
+          eachNodesPrevNode[vertVal] = null;
+        }
+
+        while (q.values.length) {
+          currNodeID = q.dequeue().value;
+
+          // shortest path found
+          if (currNodeID === end) {
+            const path = [end];
+            let curr = end;
+
+            // build up the path by following eachNodesPrevNode backwards from end to start
+            while (eachNodesPrevNode[curr] !== null) {
+              curr = eachNodesPrevNode[curr];
+              path.push(curr);
+            }
+
+            return path.reverse();
+          }
+
+          // iterate over current node's neighbors
+          for (const neighborID in graph.vertices[currNodeID].edges) {
+            neighborNode = graph.vertices[neighborID];
+
+            // calculate distance from start based on distance from start to currNode
+            const dist =
+              distanceFromStart[currNodeID] + neighborNode.edges[currNodeID];
+            // if this is the shortest path that's been found so far, update the dictionaries
+            if (dist < distanceFromStart[neighborID]) {
+              distanceFromStart[neighborID] = dist;
+              eachNodesPrevNode[neighborID] = currNodeID;
+              // put this neighbor back in the queue, prioritized by distance
+              q.enqueue(neighborID, dist);
+            }
+          }
+        }
+
+        return 'No path found';
+      }
+    };
+  }
+}
+
+var graph = new WeightedGraph();
+graph.addVertex('A');
+graph.addVertex('B');
+graph.addVertex('C');
+graph.addVertex('D');
+graph.addVertex('E');
+graph.addVertex('F');
+
+graph.addEdge('A', 'B', 4);
+graph.addEdge('A', 'C', 2);
+graph.addEdge('B', 'E', 3);
+graph.addEdge('C', 'D', 2);
+graph.addEdge('C', 'F', 4);
+graph.addEdge('D', 'E', 3);
+graph.addEdge('D', 'F', 1);
+graph.addEdge('E', 'F', 1);
+
+// graph.dijkstra('A', 'E');
+// const pathFromATo = graph.dijkstraMemo('A');
+// console.log(pathFromATo('E'));
+// console.log(graph.vertices);
 
 // console.log(
 //   Graph.numProvinces([
