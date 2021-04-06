@@ -7,7 +7,7 @@ yarn-error.log*
 lerna-debug.log*
 
 # Dependency directories
-node_modules/
+node_modules
 package-lock.json
 
 # Optional npm cache directory
@@ -29,3 +29,5 @@ package-lock.json
 jest.config.js
 tsconfig.json
 dist
+
+algos/amazon.js
