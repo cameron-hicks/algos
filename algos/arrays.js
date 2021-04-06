@@ -1,4 +1,4 @@
-// O(n) Set.insert(value) method
+// O(n) Set.insert(value) method. Maintains ascending order
 const addToSet = (set, item) => {
   let i = 0;
   while (i < set.length && item > set[i]) {
@@ -15,6 +15,35 @@ const addToSet = (set, item) => {
 };
 
 const arrays = {
+  // O(log n) search method. Given a sorted array and a target value, return the targt's index or -1 if it is not found.
+  // [0, 1, 2, 3, 4, 5, 6], 7
+  binarySearch: (arr, target) => {
+    let left = 0;
+    let right = arr.length - 1;
+    let mid = Math.floor((left + right) / 2);
+
+    while (left < right) {
+      if (arr[mid] === target) {
+        return mid;
+      }
+      if (arr[left] === target) {
+        return left;
+      }
+      if (arr[right] === target) {
+        return right;
+      }
+
+      if (arr[mid] < target) {
+        left = mid + 1;
+        mid = Math.floor((left + right) / 2);
+      } else {
+        right = mid - 1;
+        mid = Math.floor((left + right) / 2);
+      }
+    }
+
+    return -1;
+  },
   // Given an array of integers, return the indices of the (only) two numbers that add up to the target. Assume there are no duplicates and each number can only be used once. Do it in less than O(n2) time.
   /*
   Ideas for optimization:
