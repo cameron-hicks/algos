@@ -20,9 +20,17 @@ class BST {
     }
   }
 
+  static height(root) {
+    if (!root) return 0;
+    return 1 + Math.max(BST.height(this.left), BST.height(this.right));
+  }
+
   // Return true if the difference between the heights of the left and right subtrees is not greater than 1.
   balancedBST() {
-    // TODO
+    const leftH = BST.height(this.left);
+    const rightH = BST.height(this.right);
+
+    return Math.abs(leftH - rightH) <= 1;
   }
 
   // Return true if, at each node, this tree's value equals the other tree's value.
@@ -178,15 +186,16 @@ minHeap.extractRoot();
 // console.log('maxHeap', maxHeap.values); // [ 33, 39, 41, 18, 27, 12 ]
 // console.log('minHeap', minHeap.values); // [ 55, 27, 18, 41, 33, 39 ]
 
-class RedBlackTree extends BST {
-  constructor(val) {
+class AVL extends BST {
+  constructor(val, threshold = 1) {
     super(val);
-    this.color = 0;
+    // the maximum diff in left-right subtree height that won't trigger a rebalance
+    this.threshold = threshold;
   }
 
   // self-balancing insertion
   /*
-    How to tell if a tree is balanced: difference in height btw left and right subtree <= 1. To find out, add the new leaf at the position where you would typically add it, then call balancedBST on the root. If it returns false, you then call rebalance on the root.
+    How to tell if a tree is balanced: difference in height btw left and right subtree <= threshold. To find out, add the new leaf at the position where you would typically add it, then call balancedBST on the root. If it returns false, you then call rebalance on the root.
   */
   insert(val) {
     this.add(val);
@@ -218,7 +227,7 @@ Complexity (worst case):
   Search, Insert, and Delete: O(log n) guaranteed
 
 Variants: 
-  — AVL tree: same worst-case guarantee, same red-black colorign, but more balanced than RB trees because they guarantee a shorter worst-case height. This means they're usually (average case) faster than RB trees.
+  — AVL tree: same worst-case guarantee, but more balanced than RB trees because they guarantee a shorter worst-case height. This means they're usually (average case) faster than RB trees.
 
 Methods:
   — Read-only methods (eg search, contains) are the same as BSTs.
@@ -277,4 +286,4 @@ Rebalancing:
   If adding a key to a leaf would overflow the leaf's capacity, add a new leaf and make sure to add a key to the parent that points to that leaf. If adding a new leaf & key would overflow the parent's capacity, split the parent into two separate nodes and divide the children between them, adjusting pointers accordingly. Do this logic recursively up the tree all the way to the node; if adding more children one level below the node (= adding more keys to the root) would overflow the root's capacity, insert a new level between root and level 1 that contains two nodes.
 */
 
-module.exports = { BST, BinaryHeap, RedBlackTree };
+module.exports = { BST, BinaryHeap };

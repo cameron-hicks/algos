@@ -1,7 +1,27 @@
 const { BST, BinaryHeap } = require('../algos/trees');
 
-describe('Trees', () => {
-  xdescribe('Binary Search Trees', () => {
+xdescribe('Trees', () => {
+  describe('Binary Search Trees', () => {
+    const equal = new BST(10);
+    equal.add(8);
+    equal.add(11);
+
+    const offBy1 = new BST(10);
+    offBy1.add(8);
+    offBy1.add(6);
+    offBy1.add(11);
+
+    const offByMore = new BST(10);
+    offByMore.add(8);
+    offByMore.add(6);
+    offByMore.add(4);
+    offByMore.add(11);
+
+    describe('height', () => {
+      it('should return 0 for null trees', () => {
+        expect(BST.height(new BST())).toEqual(0);
+      });
+    })
 
     describe('balancedBST', () => { 
       it('should return true for null and single-node trees', () => {
@@ -10,24 +30,11 @@ describe('Trees', () => {
       })
   
       it('should return true when heights of subtrees are <= 1', () => {
-        const equal = new BST(10);
-        equal.add(8);
-        equal.add(11);
         expect(equal.balancedBST()).toEqual(true);
-  
-        const offBy1 = new BST(10);
-        offBy1.add(8);
-        offBy1.add(6);
-        offBy1.add(11);
         expect(offBy1.balancedBST()).toEqual(true);
       })
   
-      it('should return true when heights of subtrees are > 1', () => {
-        const offByMore = new BST(10);
-        offByMore.add(8);
-        offByMore.add(6);
-        offByMore.add(4);
-        offByMore.add(11);
+      it('should return false when heights of subtrees are > 1', () => {
         expect(offByMore.balancedBST()).toEqual(false);
       })
     })

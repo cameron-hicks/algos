@@ -55,25 +55,24 @@ const bubbleSort = (arr) => {
 };
 */
 
-// a do-while loop
+// a while loop
 const bubbleSort = (arr) => {
-  let swapsMade = true;
+  // boolean flag to stop iterating once array is sorted
+  let swapsMade;
+  // max # of times the bubbling process will have to be repeated
   let i = 0;
 
-  while (swapsMade) {
-    // console.log(`Iteration #${i}`);
+  do {
     i++;
     swapsMade = false;
 
     for (let j = 0; j < arr.length - i; j++) {
-      // console.log(`Sub-iteration #${j}`);
-      // console.log(arr, arr[j], arr[j+1]);  // to illustrate optimization
       if (arr[j] > arr[j + 1]) {
         [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
         swapsMade = true;
       }
     }
-  }
+  } while (swapsMade);
 
   return arr;
 };
@@ -117,19 +116,19 @@ const selectionSort = (arr) => {
 
 /*
 Strategy:
-Working from left to right, select each elem and insert it in the right place within a progressively longer sorted subarray.
+Working from left to right, select each elem and insert it in the right place within a progressively longer sorted subarray. The way you make room for the selected element to be inserted is by shifting elements rightwards.
 
 Psuedocode:
 iterate i from 1 to length
   iterate j from 0 to i
-    if elem at position i is less than elem at position j, swap i and j
+    if elem at position i is less than elem at position j, shift elems to make room to insert elem at j
 
 Optimizations:
-- break out of inner loop once a swap is found
+- break out of inner loop once the correct insertion spot is found
 
 Gotchas: 
 - inserting the current elem into its spot in the sorted subarray:
-  - easier if you iterate j from i down to the correct position where array[i] needs to go, shifting EACH elem one to the right to make room for array[i]. You can do this by copying arr[j] to arr[j+1]
+  - easier if you iterate j from i down to the correct position where array[i] needs to go, shifting EACH elem one to the right to make room for array[i]. You can do this by copying arr[j] to arr[j+1]. Make these shifts WHILE you search for the selected elem's sorted postion, not after you've found it. 
   - store that elem in a temp variable rather than trying to access it at arr[i] because arr[i] will change as you copy elems into that spot during the inner, j loop
 
 Complexity:
@@ -138,14 +137,15 @@ Complexity:
  */
 const insertionSort = (arr) => {
   for (let i = 1; i < arr.length; i++) {
-    const hold = arr[i];
+    const insert = arr[i];
     let j = i - 1;
 
-    while (j >= 0 && hold < arr[j]) {
+    while (j >= 0 && insert < arr[j]) {
       arr[j + 1] = arr[j];
       j--;
     }
-    arr[j + 1] = hold;
+
+    arr[j + 1] = insert;
   }
 
   return arr;

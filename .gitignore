@@ -30,4 +30,5 @@ jest.config.js
 tsconfig.json
 dist
 
-algos/amazon.js
+./algos/amazon.js
+./algos/google.js

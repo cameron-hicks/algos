@@ -319,7 +319,6 @@ export class WeightedGraph {
   // takes in the identifiers (in this implementation, the value) of two nodes and returns an array of node identifiers representing the shortest path between start and end
   dijkstra(start, end) {
     const q = new PriorityQueue();
-    // ** NOTE ** Can memoize this object to memoize dijkstra for each starting point
     const distanceFromStart = {};
     const eachNodesPrevNode = {};
 
