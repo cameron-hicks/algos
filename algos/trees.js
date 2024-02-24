@@ -20,6 +20,69 @@ class BST {
     }
   }
 
+  static bfs(root) {
+    const output = [];
+    const q = [root];
+
+    while (q.length) {
+      const currNode = q.shift();
+      if (currNode.left) {
+        q.push(currNode.left);
+      }
+      if (currNode.right) {
+        q.push(currNode.right);
+      }
+      output.push(currNode.val);
+    }
+
+    return output;
+  }
+
+  static dfsPre(root) {
+    const output = [];
+
+    const traverse = (node) => {
+      if (!node) return;
+
+      output.push(node.val);
+      traverse(node.left);
+      traverse(node.right);
+    };
+
+    traverse(root);
+    return output;
+  }
+
+  static dfsIn(root) {
+    const output = [];
+
+    const traverse = (node) => {
+      if (!node) return;
+
+      traverse(node.left);
+      output.push(node.val);
+      traverse(node.right);
+    };
+
+    traverse(root);
+    return output;
+  }
+
+  static dfsPost(root) {
+    const output = [];
+
+    const traverse = (node) => {
+      if (!node) return;
+
+      traverse(node.left);
+      traverse(node.right);
+      output.push(node.val);
+    };
+
+    traverse(root);
+    return output;
+  }
+
   static height(root) {
     if (!root) return 0;
     return 1 + Math.max(BST.height(this.left), BST.height(this.right));

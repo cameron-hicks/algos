@@ -1,6 +1,6 @@
 const { BST, BinaryHeap } = require('../algos/trees');
 
-xdescribe('Trees', () => {
+describe('Trees', () => {
   describe('Binary Search Trees', () => {
     const equal = new BST(10);
     equal.add(8);
@@ -17,13 +17,29 @@ xdescribe('Trees', () => {
     offByMore.add(4);
     offByMore.add(11);
 
-    describe('height', () => {
+    const trav = new BST(5);
+    trav.add(2);
+    trav.add(1);
+    trav.add(3);
+    trav.add(4);
+    trav.add(6);
+    trav.add(7);
+    trav.add(8);
+
+    /*
+        5
+      2   6
+    1  3    7
+         4     8       
+    */
+
+    xdescribe('height', () => {
       it('should return 0 for null trees', () => {
         expect(BST.height(new BST())).toEqual(0);
       });
     })
 
-    describe('balancedBST', () => { 
+    xdescribe('balancedBST', () => { 
       it('should return true for null and single-node trees', () => {
         expect(new BST().balancedBST()).toEqual(true);
         expect(new BST(0).balancedBST()).toEqual(true);
@@ -38,6 +54,31 @@ xdescribe('Trees', () => {
         expect(offByMore.balancedBST()).toEqual(false);
       })
     })
+
+    describe('bfs', () => {
+      it('should print nodes in the correct order', () => {
+        console.log(trav);
+        expect(BST.bfs(trav)).toEqual([5, 2, 6, 1, 3, 7, 4, 8])
+      });
+    });
+
+    describe('dfs preorder', () => {
+      it('should print nodes in the correct order', () => {
+        expect(BST.dfsPre(trav)).toEqual([5, 2, 1, 3, 4, 6, 7, 8]);
+      });
+    });
+
+    describe('dfs in-order', () => {
+      it('should print nodes in the correct order', () => {
+        expect(BST.dfsIn(trav)).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
+      });
+    });
+
+    describe('dfs postorder', () => {
+      it('should print nodes in the correct order', () => {
+        expect(BST.dfsPost(trav)).toEqual([1, 4, 3, 2, 8, 7, 6, 5]);
+      });
+    });
   })
   
   xdescribe('Binary Heaps', () => {
