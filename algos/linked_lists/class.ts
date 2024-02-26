@@ -1,4 +1,4 @@
-class LinkedListNode {
+export class LinkedListNode {
   val: number | string;
   next: LinkedListNode | null;
 
@@ -6,10 +6,14 @@ class LinkedListNode {
     this.val = value;
     this.next = null;
   }
+
+  reverseRecursive () {
+    return this;
+  }
 }
 
 export class LinkedList {
-  head: LinkedListNode | null;
+  head: LinkedListNode;
 
   constructor(node_vals: (number | string)[]) {
     const head_value = node_vals.shift();
