@@ -1,4 +1,4 @@
-const { arrays, PriorityQueue } = require('../algos/arrays');
+const { arrays, PriorityQueue } = require('../algos/2021/arrays');
 
 xdescribe('Arrays', () => {
   describe('binarySearch', () =>{
