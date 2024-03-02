@@ -2,7 +2,7 @@
 You are climbing a staircase. It takes n total steps to reach the top. Each time you climb you may take 1 step or 2 steps. In how many distinct combinations of climbs can you reach the top?
 */
 
-import { Tree, TreeNode } from '../trees/class';
+import { Tree, TreeNode } from './class';
 
 // O(2^n)
 const climbingStairsBrute = (n: number): number => {
