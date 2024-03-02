@@ -4,9 +4,9 @@ Invert a Binary Tree
 At each level of the tree, swap which node is on the right and which is on the left.
 */
 
-import { Tree, TreeNode } from './class';
+import { Tree, BinaryTreeNode } from './class';
 
-const invert = (root: TreeNode): TreeNode => {
+const invert = (root: BinaryTreeNode): BinaryTreeNode => {
   if (!root) return null;
 
   const temp = root.left;
@@ -29,6 +29,6 @@ after:
 null 6   5  4
 */
 
-const tree = new Tree([1, 2, 3, 4, 5, 6]);
+const tree = new BinaryTree([1, 2, 3, 4, 5, 6]);
 const inverted = invert(tree.root);
 // debugger;

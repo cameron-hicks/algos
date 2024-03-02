@@ -2,12 +2,12 @@
 You are climbing a staircase. It takes n total steps to reach the top. Each time you climb you may take 1 step or 2 steps. In how many distinct combinations of climbs can you reach the top?
 */
 
-import { Tree, TreeNode } from './class';
+import { Tree, BinaryTreeNode } from './class';
 
 // O(2^n)
 const climbingStairsBrute = (n: number): number => {
   let numTerminalNodesFound = 0;
-  const tree = new Tree([0]);
+  const tree = new BinaryTree([0]);
   let currNode = tree.root;
   const queue = [];
 
@@ -15,8 +15,8 @@ const climbingStairsBrute = (n: number): number => {
     if (currNode.value == n) {
       numTerminalNodesFound++;
     } else if (currNode.value < n) {
-      currNode.left = new TreeNode(currNode.value + 1);
-      currNode.right = new TreeNode(currNode.value + 2);
+      currNode.left = new BinaryTreeNode(currNode.value + 1);
+      currNode.right = new BinaryTreeNode(currNode.value + 2);
       queue.push(currNode.left, currNode.right);
     }
     // some terminal nodes will have value > n; that's overshooting, having taken too many steps. We should disregard those and not count them towards the answer or continue iterating upon them.

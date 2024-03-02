@@ -1,10 +1,10 @@
-import { Tree, TreeNode } from './class';
+import { Tree, BinaryTreeNode } from './class';
 
 /*
 Maximum Depth of Binary Tree
 */
 
-const maxDepth = (root: TreeNode | null): number => {
+const maxDepth = (root: BinaryTreeNode | null): number => {
   if (!root) return 0;
 
   const leftMax = maxDepth(root.left);
@@ -25,6 +25,6 @@ depth: 3
 
 depth: 2
 */
-// const tree = new Tree([1, 2, 3]);
-const tree = new Tree([1, 2, 3, 4, 5, 6]);
+// const tree = new BinaryTree([1, 2, 3]);
+const tree = new BinaryTree([1, 2, 3, 4, 5, 6]);
 console.log(maxDepth(tree.root));
