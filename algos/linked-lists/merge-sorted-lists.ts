@@ -67,3 +67,5 @@ while (!!result) {
   console.log(result.value);
   result = result.next;
 }
+
+export {};

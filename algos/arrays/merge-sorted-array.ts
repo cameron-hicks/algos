@@ -52,3 +52,5 @@ a = [1, 2, 3];
 b = [2, 5, 6];
 // answer: [1, 2, 2, 3, 5, 6]
 console.log(mergeArrays(a, b));
+
+export {};
