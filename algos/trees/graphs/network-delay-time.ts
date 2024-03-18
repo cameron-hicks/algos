@@ -37,7 +37,7 @@ class Server {
 }
 
 // TODO: try with other shapes of graphs, for example one with a node that sits off by itself disconnected from the others (should return -1) and one with at least one node that points to null
-// TODO: my MinHeap's add() implementation is flawed... it chose the higher-weighted edge to get to D.
+// TODO: my MinHeap's add() implementation is flawed... it chose the higher-weighted edge to get to D. I think I need to specify how to compare the items in the heap. I could pass [weight, edgeObject] and have MinHeap sort by the first item in that array of args.
 // I could try an array with insertion sort instead, using a callback arg to compare the items.
 const networkDelayTime = (source: Server, numServers: number = 1) => {
   let totalLatency = 0;

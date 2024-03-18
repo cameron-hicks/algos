@@ -2,7 +2,6 @@ import { LinkedList, LinkedListNode } from './class';
 
 // Reverse a linked list.
 // Iterative
-/*
 LinkedList.prototype.reverse = function () {
   let curr: LinkedListNode | null = this.head;
   let prev: LinkedListNode | null = null;
@@ -11,6 +10,7 @@ LinkedList.prototype.reverse = function () {
   while (curr) {
     rest = curr.next;
     curr.next = prev;
+    
     prev = curr;
     curr = rest;
   }
@@ -22,7 +22,7 @@ LinkedList.prototype.reverse = function () {
 let ll = new LinkedList([1, 2, 3, 4, 5]);
 ll.print();
 ll.reverse().print();
-*/
+
 
 // Reverse a linked list.
 // Recursive
