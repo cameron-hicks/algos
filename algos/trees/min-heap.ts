@@ -32,7 +32,7 @@ swap() interchanges value at two nodes
 export class MinHeap<T> {
   heap: T[] = [];
 
-  construct() {
+  constructor() {
     this.heap = [];
   }
 
@@ -49,7 +49,7 @@ export class MinHeap<T> {
   }
 
   parentIdx(childIdx: number) {
-    return Math.floor(((childIdx - 1)/2));
+    return Math.floor((childIdx - 1) / 2);
   }
 
   hasLeftChild(parentIdx: number) {
@@ -92,10 +92,10 @@ export class MinHeap<T> {
     // remove duplicate
     this.heap.pop();
     this.heapifyDown();
-    
+
     return item;
   }
-  
+
   // rebalance by bubbling the previously-last item back down to the bottom
   // will require swapping the other children around as well to keep the tree complete
   heapifyDown() {
@@ -111,11 +111,11 @@ export class MinHeap<T> {
       // curr item belongs as parent of smallerChild
       if (this.heap[i] < this.heap[smallerChildIdx]) {
         // the item has bubbled down to its sorted position; you're done
-        break;  
+        break;
       } else {
         this.swap(i, smallerChildIdx);
 
-        // increment the index to the new position the item is in now, 
+        // increment the index to the new position the item is in now,
         // now that it's swapped with its child.
         i = smallerChildIdx;
       }
@@ -127,7 +127,7 @@ export class MinHeap<T> {
     this.heap.push(item);
     this.heapifyUp();
   }
-  
+
   // rebalance by bubbling the new item as far up as it belongs
   heapifyUp() {
     let i = this.heap.length - 1;
@@ -138,6 +138,5 @@ export class MinHeap<T> {
       // now that it's swapped with its parent.
       i = this.parentIdx(i);
     }
-
   }
 }
