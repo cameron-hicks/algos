@@ -1,0 +1,25 @@
+{
+    "eslint.validate": ["typescript", "typescriptreact"],
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "eslint.enable": true,
+    "eslint.run": "onSave",
+    "jest.runMode": "on-demand",
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "[typescript]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
+    },
+    "[terraform]": {
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "hashicorp.terraform"
+    },
+    "gitlens.advanced.blame.customArguments": [
+        "--ignore-revs-file",
+        ".git-blame-ignore-revs"
+    ]
+}

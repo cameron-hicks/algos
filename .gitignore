@@ -21,13 +21,8 @@ package-lock.json
 .env.test
 
 # linter
-.eslintrc.json
-.prettierrc
-.vscode
 
 # configs and compilers
-jest.config.js
-tsconfig.json
 dist
 
 ./algos/amazon.js

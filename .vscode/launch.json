@@ -1,0 +1,57 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run File",
+            "type": "node",
+            "request": "launch",
+
+            // Debug current file in VSCode
+            "program": "${file}",
+
+            /*
+            Path to ts-node binary
+            Assuming locally installed
+            */
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/ts-node",
+
+            /*
+            Open terminal when debugging starts (Optional)
+            Useful to see console.logs
+            */
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart",
+            "env": {
+                "NODE_ENV": "development",
+                "LOG": "VERBOSE",
+                "TSX_TSCONFIG_PATH": "${workspaceFolder}/tsconfig.json"
+            },
+            "envFile": "${workspaceFolder}/.env",
+            // Files to exclude from debugger (e.g. call stack)
+            "skipFiles": [
+                // Node.js internal core modules
+                "<node_internals>/**",
+
+                // Ignore all dependencies (optional)
+                "${workspaceFolder}/node_modules/**"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Jest: current file",
+            "env": { "NODE_ENV": "test" },
+            "program": "${workspaceFolder}/node_modules/.bin/jest",
+            "args": [
+                "${fileBasenameNoExtension}",
+                "--config",
+                "jest.config.ts"
+            ],
+            "console": "integratedTerminal",
+            "disableOptimisticBPs": true,
+            "windows": {
+                "program": "${workspaceFolder}/node_modules/jest/bin/jest"
+            }
+        }
+    ]
+}
